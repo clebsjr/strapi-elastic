@@ -5,13 +5,13 @@ const {
   findOne,
   migrateById,
   migrateModel,
-} = require("./functions");
+} = require('./functions');
 
-const { elasticsearchManager } = require("./middleware");
+const { elasticsearchManager } = require('./middleware');
 
-const logger = require("./logger");
+const logger = require('./logger');
 
-const helper = require("./helper");
+const helper = require('./helper');
 
 module.exports = {
   createOrUpdate,

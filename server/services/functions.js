@@ -1,5 +1,6 @@
-const _ = require("lodash");
-const { compareDataWithMap } = require("./helper");
+const _ = require('lodash');
+const { compareDataWithMap } = require('./helper');
+
 module.exports = {
   /**
    *
@@ -13,12 +14,12 @@ module.exports = {
     const id = _.isObject(pk) ? pk.id : pk;
 
     if (!id) {
-      strapi.log.error("Parameter ID is not valid");
+      strapi.log.error('Parameter ID is not valid');
       return;
     }
 
     if (!targetModel) {
-      strapi.log.error("Model not found");
+      strapi.log.error('Model not found');
       return;
     }
 
@@ -38,7 +39,7 @@ module.exports = {
     let id_in;
 
     if (pk.id_in && !_.isArray(pk.id_in)) {
-      strapi.log.error("id_in must be array");
+      strapi.log.error('id_in must be array');
       return;
     }
 
@@ -52,11 +53,11 @@ module.exports = {
     const targetModel = models.find((item) => item.model === model);
 
     if (!id_in) {
-      strapi.log.error("pk parameter is not valid");
+      strapi.log.error('pk parameter is not valid');
     }
 
     if (!targetModel) {
-      strapi.log.error("model notfound");
+      strapi.log.error('model notfound');
       return;
     }
 
@@ -66,7 +67,7 @@ module.exports = {
       return {
         delete: {
           _index: targetModel.index,
-          _type: "_doc",
+          _type: '_doc',
           _id: id,
         },
       };
@@ -88,12 +89,12 @@ module.exports = {
     const targetModel = await models.find((item) => item.model === model);
 
     if (!data) {
-      strapi.log.error("No data to index");
+      strapi.log.error('No data to index');
       return;
     }
 
     if (!targetModel) {
-      strapi.log.error("Model not found");
+      strapi.log.error('Model not found');
       return;
     }
 
@@ -120,7 +121,7 @@ module.exports = {
     } else if (id && data) {
       result = await strapi.elastic.update({
         index: targetModel.index,
-        id: data[targetModel.pk || "id"],
+        id: data[targetModel.pk || 'id'],
         body: {
           doc: data,
           doc_as_upsert: true,
@@ -157,8 +158,8 @@ module.exports = {
       {
         index: {
           _index: targetModel.index,
-          _id: doc[targetModel.pk || "id"],
-          _type: "_doc",
+          _id: doc[targetModel.pk || 'id'],
+          _type: '_doc',
         },
       },
       doc,
@@ -212,7 +213,7 @@ module.exports = {
       const endSql = Date.now();
 
       if (data.length === 0) {
-        strapi.log.debug("End of import");
+        strapi.log.debug('End of import');
         break;
       }
 
@@ -248,8 +249,8 @@ module.exports = {
         sort: [
           {
             updated_at: {
-              order: "desc",
-              unmapped_type: "date",
+              order: 'desc',
+              unmapped_type: 'date',
             },
           },
         ],
@@ -306,8 +307,8 @@ async function parseDataToElastic(targetModel, data) {
     {
       index: {
         _index: targetModel.index,
-        _id: doc[targetModel.pk || "id"],
-        _type: "_doc",
+        _id: doc[targetModel.pk || 'id'],
+        _type: '_doc',
       },
     },
     doc,

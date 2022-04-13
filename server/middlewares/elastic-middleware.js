@@ -1,9 +1,6 @@
-const { elasticsearchManager } = require("../services");
+const { elasticsearchManager } = require('../services');
 
-module.exports = (options, { strapi }) => {
-  return async (ctx, next) => {
-    await next();
-
-    elasticsearchManager(ctx);
-  };
+module.exports = () => async (ctx, next) => {
+  elasticsearchManager(ctx);
+  await next();
 };

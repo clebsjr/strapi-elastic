@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const elasticsearch = require("./elasticsearch");
+const elasticsearch = require('./elasticsearch');
 
 module.exports = {
   elasticsearch,

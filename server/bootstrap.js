@@ -1,8 +1,8 @@
-const { Client } = require("@elastic/elasticsearch");
+const { Client } = require('@elastic/elasticsearch');
 
 const {
   helper: { generateMainConfig, initialStrapi },
-} = require("./services");
+} = require('./services');
 const {
   logger,
   migrateModel,
@@ -11,15 +11,15 @@ const {
   createOrUpdate,
   destroy,
   migrateById,
-} = require("./services");
+} = require('./services');
 
 const registerPermissionActions = () => {
   const { actionProvider } = strapi.admin.services.permission;
   actionProvider.register({
-    section: "plugins",
-    displayName: "Read",
-    uid: "read",
-    pluginName: "elastic",
+    section: 'plugins',
+    displayName: 'Read',
+    uid: 'read',
+    pluginName: 'elastic',
   });
 };
 
@@ -55,7 +55,7 @@ module.exports = async () => {
 
     Object.assign(strapi.elastic, functions);
 
-    strapi.log.info("The elastic plugin is running");
+    strapi.log.info('The elastic plugin is running');
   }
 
   registerPermissionActions();

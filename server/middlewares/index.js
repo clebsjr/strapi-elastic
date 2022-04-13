@@ -1,4 +1,4 @@
-const elasticMiddleware = require("./elastic-middleware");
+const elasticMiddleware = require('./elastic-middleware');
 
 module.exports = {
   elasticMiddleware,

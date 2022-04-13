@@ -1,11 +1,11 @@
-const _ = require("lodash");
+const _ = require('lodash');
 
 const {
   findModel,
   isContentManagerUrl,
   isDeleteAllUrl,
   checkRequest,
-} = require("./helper");
+} = require('./helper');
 
 /**
  *
@@ -68,7 +68,7 @@ const verifyBulkDelete = (url, method) => {
 
   const result = bulkDeleteUrlPattern.test(url);
 
-  return method === "POST" && !!result;
+  return method === 'POST' && !!result;
 };
 
 module.exports = {
@@ -86,13 +86,13 @@ module.exports = {
     const targetModel = await findTargetModel(models, url);
     if (!targetModel) return;
 
-    const pk = targetModel.pk || "id";
+    const pk = targetModel.pk || 'id';
 
     const { id } =
       _.pick(ctx.body, pk) || _.pick(ctx.params, pk) || _.pick(ctx.query, pk);
 
-    const shouldUpdate = method === "POST" || method === "PUT";
-    const shouldDelete = method === "DELETE";
+    const shouldUpdate = method === 'POST' || method === 'PUT';
+    const shouldDelete = method === 'DELETE';
     const shouldBulkDelete = verifyBulkDelete(url, method);
 
     if (shouldBulkDelete) {

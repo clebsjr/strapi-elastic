@@ -1,10 +1,9 @@
-import prefixPluginTranslations from "@strapi/helper-plugin";
-import pluginPkg from "../../package.json";
-import pluginId from "./pluginId";
-import Initializer from "./components/Initializer";
-import PluginIcon from "./components/PluginIcon";
+import pluginPkg from '../../package.json';
+import pluginId from './pluginId';
+import Initializer from './components/Initializer';
+import PluginIcon from './components/PluginIcon';
 
-const name = pluginPkg.strapi.name;
+const { name } = pluginPkg.strapi;
 
 export default {
   register(app) {
@@ -17,14 +16,14 @@ export default {
       },
       Component: async () => {
         const component = await import(
-          /* webpackChunkName: "[request]" */ "./pages/App"
+          /* webpackChunkName: "[request]" */ './pages/App'
         );
 
         return component;
       },
       permissions: [
         {
-          action: "plugin::elastic.read", // the action name should be plugins::plugin-name.actionType
+          action: 'plugin::elastic.read', // the action name should be plugins::plugin-name.actionType
           subject: null,
         },
       ],

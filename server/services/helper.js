@@ -1,9 +1,9 @@
-"user strict";
+'user strict';
 
-const axios = require("axios");
-const fs = require("fs");
-const path = require("path");
-const _ = require("lodash");
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+const _ = require('lodash');
 
 const modelConfigTemplate = (model) => ({
   model,
@@ -11,7 +11,7 @@ const modelConfigTemplate = (model) => ({
   plugin: null,
   enabled: false,
   migration: false,
-  pk: "id",
+  pk: 'id',
   relations: [],
   conditions: {},
   fillByResponse: true,
@@ -19,9 +19,7 @@ const modelConfigTemplate = (model) => ({
   urls: [],
 });
 
-const isModel = (config) => {
-  return config.model !== ".gitkeep";
-};
+const isModel = (config) => config.model !== '.gitkeep';
 
 const elasticsearchConfigTemplate = (modelsConfig) => `
 module.exports = ({ env }) => ({
@@ -127,14 +125,14 @@ module.exports = {
     return targetModel;
   },
   generateMainConfig: () => {
-    const rootPath = path.resolve(__dirname, "../../../../../");
-    const configPath = rootPath + "/config/elasticsearch.js";
+    const rootPath = path.resolve(__dirname, '../../../../../');
+    const configPath = rootPath + '/config/elasticsearch.js';
 
     const existConfigFile = fs.existsSync(configPath);
 
     if (existConfigFile) return;
 
-    const models = fs.readdirSync(rootPath + "/src/api");
+    const models = fs.readdirSync(rootPath + '/src/api');
 
     const modelsConfig = [];
 
@@ -154,17 +152,17 @@ module.exports = {
   compareDataWithMap: ({ properties, docs }) => {
     // initial variable;
     const elasticSearchNumericTypes = [
-      "long",
-      "integer",
-      "short",
-      "byte",
-      "double",
-      "float",
-      "half_float",
-      "scaled_float",
-      "unsigned_long",
+      'long',
+      'integer',
+      'short',
+      'byte',
+      'double',
+      'float',
+      'half_float',
+      'scaled_float',
+      'unsigned_long',
     ];
-    let outputDataType = "array";
+    let outputDataType = 'array';
     let newMappings = false;
 
     const result = [];
@@ -174,7 +172,7 @@ module.exports = {
       docs = [docs];
 
       // outputDataType use for remind input data type to return with same type
-      outputDataType = "object";
+      outputDataType = 'object';
     }
     const propertiesKeys = Object.keys(properties);
 
@@ -248,25 +246,25 @@ module.exports = {
             dockKeyUsed.push(docKey);
 
             // check strings
-          } else if (_.isString(DOC) && DOC_PROPERTY === "text") {
+          } else if (_.isString(DOC) && DOC_PROPERTY === 'text') {
             //
             res[docKey] = DOC;
             dockKeyUsed.push(docKey);
 
             // check boolean
-          } else if (_.isBoolean(DOC) && DOC_PROPERTY === "boolean") {
+          } else if (_.isBoolean(DOC) && DOC_PROPERTY === 'boolean') {
             //
             res[docKey] = DOC;
             dockKeyUsed.push(docKey);
 
             // check date
-          } else if (_.isDate(DOC) && DOC_PROPERTY === "date") {
+          } else if (_.isDate(DOC) && DOC_PROPERTY === 'date') {
             //
             res[docKey] = DOC;
             dockKeyUsed.push(docKey);
 
             // check date
-          } else if (_.isString(DOC) && DOC_PROPERTY === "date") {
+          } else if (_.isString(DOC) && DOC_PROPERTY === 'date') {
             //
             res[docKey] = DOC;
             dockKeyUsed.push(docKey);
@@ -292,11 +290,11 @@ module.exports = {
       result.push(res);
     }
     // return data it depends on outputDataType
-    if (outputDataType === "array") {
+    if (outputDataType === 'array') {
       //
       return { result, newMappings };
       //
-    } else if (outputDataType === "object") {
+    } else if (outputDataType === 'object') {
       //
       return { result: result[0], newMappings };
       //
@@ -330,7 +328,7 @@ module.exports = {
     const currentVersion = setting.version;
 
     const releases = await axios.default.get(
-      "https://api.github.com/repos/marefati110/strapi-plugin-elastic/releases"
+      'https://api.github.com/repos/marefati110/strapi-plugin-elastic/releases'
     );
 
     const lastVersion = releases.data[0];
@@ -340,13 +338,13 @@ module.exports = {
       lastVersion.prerelease === false
     ) {
       strapi.log.warn(
-        "There is new version for strapi-plugin-elastic. please update plugin."
+        'There is new version for strapi-plugin-elastic. please update plugin.'
       );
     }
   },
   findMappingConfig: async ({ targetModel }) => {
     //
-    const rootPath = path.resolve(__dirname, "../../../");
+    const rootPath = path.resolve(__dirname, '../../../');
 
     const mappingConfigFilePath = `${rootPath}/exports/elasticsearch/${targetModel.model}.index.json`;
 
@@ -365,11 +363,11 @@ module.exports = {
 
     const { models } = strapi.config.elasticsearch;
 
-    const rootPath = path.resolve(__dirname, "../../../");
+    const rootPath = path.resolve(__dirname, '../../../');
 
     const exportPath = `${rootPath}/exports/elasticsearch`;
 
-    fs.mkdirSync(rootPath + "/exports/elasticsearch", { recursive: true });
+    fs.mkdirSync(rootPath + '/exports/elasticsearch', { recursive: true });
 
     const indicesMapConfigFile = fs.readdirSync(exportPath);
 
